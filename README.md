@@ -4,8 +4,65 @@
 
 * Windows 10 Pro 21H2
 * git for windows version 2.35.2.windows.1
+* Proxy 認証有
 
-## 2要素認証ありでの https clone 手順
+## 2要素認証ありで Private repository の https clone 手順
+
+* `git config` に Proxy の設定を追加
+
+```sh
+> git config --global http.proxy "http://<proxy user>:<proxy pass>@<proxy url>:<port>"
+```
+
+* 2要素認証の場合、アクセストークンが(多分)必要なので作成する<br>
+  Github のアカウントにログインし、右上のアイコンから `Settings` を選択
+
+  ![Settings](img/GIthub-Settings.png)
+
+* 左のメニューにある `Developper settings` を選択
+
+  ![Developper settings](img/GIthub-Developper-Settings.png)
+
+* 左のメニューにある `Personal access tokens` を選択
+
+  ![Personal access tokens](img/GIthub-Personal-access-tokens.png)
+
+* 右側の `Generate new token` をクリック
+
+  ![Generate new token](img/GIthub-Generate-new-token.png)
+
+* アクセストークの設定を行う<br>
+  `Note` にはアクセストークンの説明を記述<br>
+  `Expiration` はトークンの有効期限<br>
+  `Select scopes` は `repo` から `gist` までを選択
+
+  ![Token setting](img/GIthub-Token-setting.png)
+
+* `Generate token` をクリックしてトークンを作成
+
+  ![Generate token](img/GIthub-Generate-token.png)
+
+* トークンが表示されるのでコピーする(二度と表示されない)
+
+  ![Token](img/GIthub-Token.png)
+
+* Github から clone するリポジトリの URL をコピーする
+
+  ![Copy HTTPS](img/GIthub-Clone-HTTPS-Copy.png)
+
+* コピーした URL にユーザ名を追加する
+
+  ```txt
+  https://khi-miki-noriaki@github.com/khi-miki-noriaki/test-private.git
+  ```
+
+* `git clone` コマンドでクローンする.
+
+  ```sh
+  > git clone https://khi-miki-noriaki@github.com/khi-miki-noriaki/test-private.git
+  ```
+
+* 認証情報を求められるので、作成したトークンを入力する
 
 ## SSH 接続の Clone 手順(失敗)
 
